@@ -38,16 +38,12 @@ span.rank {
   text-align: center;
   color: #8B0000;
   position: absolute;
-  margin: -124px 10px 84px 158px;
+  top: 85px;
+  left: 160px;
 }
-
-// article.person {
-//   height: 344px;
-// }
 
 .details {
   text-align: center;
-
 }
 
 .name {
@@ -60,15 +56,26 @@ span.rank {
 
 .extra {
   display: none;
-  font-size: 18px;
-  line-height: 21px;
-  text-align: center;
+  width: 185px;
+  height: 25px;
+  font-size: 22px;
+  line-height: 25px;
+  margin-top: 10px;
+  margin-left: 40px;
+}
+
+.person-wrap {
+  width: 200px;
+  position: relative;
+}
+
+article.person {
+  position: absolute;
 }
 
 article.person:hover {
   .extra {
     display: block;
-
   }
   .photo > img {
     margin: 10px 10px 0 10px;
@@ -85,6 +92,8 @@ article.person:hover {
   background: #eee;
   border-radius: 10px;
   animation: increase 1s linear forwards;
+  position: absolute;
+  z-index: 5;
 }
 
 @keyframes increase {
@@ -132,11 +141,13 @@ article.person:hover {
 
 @keyframes increaseRank {
   from {
-    margin: -124px 10px 84px 158px;
+    top: 85px;
+    left: 160px;
   }
 
   to {
-    margin: -134px 0 101px 208px;
+    top: 110px;
+    left: 210px;
   }
 }
 
