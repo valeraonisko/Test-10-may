@@ -1,14 +1,70 @@
 body {
   margin: 0;
+  font-family: Arial;
   display: flex;
   justify-content: center;
 }
 
-.container > div {
-  width: 100px;
-  height: 100px;
-  background: red;
-  margin-top: 50px;
+.people {
+  margin: 30px auto;
+  width: 890px;
+  display: grid;
+  grid-template: repeat(3, 231px)/repeat(4, 1fr);
+  grid-column-gap: 30px;
+  grid-row-gap: 40px;
+}
+
+.photo > img {
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  padding: 0;
+  position: relative;
+}
+
+span.rank {
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
+  background: white;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #8B0000;
+  position: absolute;
+  margin: -124px 10px 84px 158px;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+}
+
+.name {
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+  color: #2F4F4F;
+  margin-top: 8px;
+}
+
+.extra {
+  display: none;
+}
+
+@media (max-width: 999px) {
+  .people {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+    grid-auto-rows: 231px;
+    margin: 30px 160px;
+  }
+}
+@media (max-width: 599px) {
+  .people {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+    grid-auto-rows: 231px;
+    margin: 30px 35px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
