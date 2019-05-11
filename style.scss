@@ -1,162 +1,133 @@
+$cardSize: 200px;
+$horizontalGap: 30px;
+$horizontalMarg: 35px;
+$rankWidht: 32px;
+$extraHeight: 36px;
+$animationPeriod: 1s;
 
+@function calculateWidth ($columns) {
+  @return $columns * $cardSize + ($columns - 1) * $horizontalGap + 2 * $horizontalMarg - 1px;
+}
 
-body {
+@function calcRankPosition ($rankWidht, $cardSize) {
+  @return ($cardSize - $rankWidht)/2;
+}
+
+html, body {
   margin: 0;
   padding: 0;
-  font-family: Arial;
+  display: flex;
+  justify-content: center;
+  min-width: calculateWidth(2);
+  font-family: Arial, sans-serif;
+
 }
 
 .people {
-  margin: 30px auto;
-  width: 890px;
+  margin: 30px $horizontalMarg;
   display: grid;
-  justify-content: center;
-  grid-template: repeat(3, 231px) / repeat(4, 1fr);
-  grid-column-gap: 30px;
-  grid-row-gap: 40px;
-}
+  grid: auto-flow/ repeat(4, $cardSize);
+  grid-gap: 40px $horizontalGap;
 
-.photo > img {
-  width: 200px;
-  height: 200px;
-  border-radius: 200px;
-  padding: 0;
+  .person {
+    position: relative;
+    transition: transform $animationPeriod;
+    .photo {
+      position: relative;
+      img {
+        width: 100%;
+        border-radius: 50%;
+        transition: border-radius $animationPeriod;
+      }
 
-}
+      .rank {
+        position: absolute;
+        width: $rankWidht;
+        height: $rankWidht;
+        border-radius: 50%;
+        background: white;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: $rankWidht;
+        text-align: center;
+        color: #8B0000;
+        right: 10px;
+        top: calcRankPosition($rankWidht, $cardSize);
+      }
+    }
+    .details {
+      text-align: center;
+      .name {
+        font-size: 20px;
+        line-height: 23px;
+        font-weight: bold;
+        color: #2F4F4F;
+        margin-top: 8px;
+        display: block;
+      }
 
-.photo {
-  position: relative;
-}
+      .extra {
+        display: none;
+      }
+    }
+    &:hover {
+      z-index: 1;
+      transform: scale(1.2);
 
-span.rank {
-  width: 32px;
-  height: 32px;
-  border-radius: 32px;
-  background: white;
-  font-size: 16px;
-  line-height: 32px;
-  text-align: center;
-  color: #8B0000;
-  position: absolute;
-  top: 85px;
-  left: 160px;
-}
+      .photo {
+        img {
+          border-radius: 25%;
+        }
+      }
 
-.details {
-  text-align: center;
-}
+      .extra {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        font-size: 18px;
+        color: #000000;
+        text-align: center;
+        height: $extraHeight;
+        line-height: $extraHeight;
 
-.name {
-  font-size: 20px;
-  line-height: 23px;
-  text-align: center;
-  color: #2f4f4f;
-  margin-top: 8px;
-}
+          .sport::after {
+            content: ",";
+            display: inline;
+          }
 
-.extra {
-  display: none;
-  width: 185px;
-  height: 25px;
-  font-size: 22px;
-  line-height: 25px;
-  margin-top: 10px;
-  margin-left: 40px;
-}
+          .pay::before {
+            content: "$";
+            display: inline;
+          }
 
-.person-wrap {
-  width: 200px;
-  position: relative;
-}
+          .pay::after {
+            content: "M";
+            display: inline;
+          }
+      }
 
-article.person {
-  position: absolute;
-}
 
-article.person:hover {
-  .extra {
-    display: block;
-  }
-  .photo > img {
-    margin: 10px 10px 0 10px;
-    animation: increaseImg 1s linear forwards;
-  }
-  .name {
-    animation: increaseName 1s linear forwards;
-  }
-  span.rank {
-    animation: increaseRank 1s linear forwards;
-  }
-  width: 220px;
-  height: 287px;
-  background: #eee;
-  border-radius: 10px;
-  animation: increase 1s linear forwards;
-  position: absolute;
-  z-index: 5;
-}
-
-@keyframes increase {
-  from {
-      width: 220px;
-      height: 287px;
-      border-radius: 10px;
-      left: 0;
-  }
-
-  to {
-    width: 264px;
-    height: 344.4px;
-    border-radius: 12px;
-    left: -32px;
+      &::after {
+        content: " ";
+        display: block;
+        background: #EEEEEE;
+        border-radius: 10px;
+        position: absolute;
+        $padding: 10px;
+        left: -$padding;
+        top: -$padding;
+        right: -$padding;
+        bottom: -$extraHeight - $padding;
+        z-index: -1;
+      }
+    }
   }
 }
 
-@keyframes increaseImg {
-  from {
-    width: 200px;
-    height: 200px;
-    border-radius: 200px;
-    margin: 10px 10px 0 10px;
-  }
-
-  to {
-    width: 240px;
-    height: 240px;
-    border-radius: 60px;
-  }
-}
-
-@keyframes increaseName {
-  from {
-    font-size: 20px;
-    line-height: 23px;
-  }
-
-  to {
-    width: 165px;
-    height: 28px;
-    font-size: 24px;
-    line-height: 28px;
-  }
-}
-
-@keyframes increaseRank {
-  from {
-    top: 85px;
-    left: 160px;
-  }
-
-  to {
-    top: 110px;
-    left: 210px;
-  }
-}
-
-@media (max-width: 999px) {
+@media (max-width: calculateWidth(4)) {
   .people {
-    grid-template-columns: repeat(2, 200px);
-    grid-auto-rows: repeat(auto-fit, 231px);
-    margin-top: 30px;
+    grid: auto-flow/ repeat(2, $cardSize);
   }
 }
